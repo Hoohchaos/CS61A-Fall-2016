@@ -5,7 +5,7 @@
 
 ; Some utility functions that you may find useful to implement.
 (define (map proc items)
-  (if (null? items) nil (cons (proc (cdr items)) (map proc (cdr items))))
+  (if (null? items) nil (cons (proc (car items)) (map proc (cdr items))))
 )
 
 (define (cons-all first rests)
@@ -75,20 +75,18 @@
                (params (cadr expr))
                (body   (cddr expr)))
            ; BEGIN PROBLEM 19
-           (list (car body) (cdr body) (let-to-lambda (cadr body)))
-           ;(cons form (cons params (map let-to-lambda body)))
-           ;(cons form (cons params (let-to-lambda (cadr body))))
+           (append (list form params) (map let-to-lambda body))
            ; END PROBLEM 19
            ))
         ((let? expr)
          (let ((values (cadr expr))
                (body   (cddr expr)))
            ; BEGIN PROBLEM 19
-           (cons (cons 'lambda (cons (car (zip values)) (map let-to-lambda body))) (map let-to-lambda (cadr (zip values))))
+           (cons (append (list 'lambda (car (zip values))) (map let-to-lambda body)) (map let-to-lambda (cadr (zip values))))
            ; END PROBLEM 19
            ))
         (else
          ; BEGIN PROBLEM 19
-         (cons (car expr) (let-to-lambda (cdr expr)))
+         (map let-to-lambda expr)
          ; END PROBLEM 19
          )))

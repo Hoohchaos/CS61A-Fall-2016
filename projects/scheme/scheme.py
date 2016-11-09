@@ -259,15 +259,6 @@ def do_if_form(expressions, env):
 def do_and_form(expressions, env):
     """Evaluate a short-circuited and form."""
     # BEGIN PROBLEM 13
-    """
-    if len(expressions) == 0:
-        return True
-    elif len(expressions) == 1:
-        return scheme_eval(expressions.first,env)
-    elif scheme_falsep(scheme_eval(expressions.first, env)):
-        return False
-    return do_and_form(expressions.second,env)
-    """
     ret = True
     while expressions != nil:
         ret = scheme_eval(expressions.first, env)
@@ -280,15 +271,6 @@ def do_and_form(expressions, env):
 def do_or_form(expressions, env):
     """Evaluate a short-circuited or form."""
     # BEGIN PROBLEM 13
-    """
-    if len(expressions) == 0:
-        return False
-    elif len(expressions) == 1:
-        return scheme_eval(expressions.first,env)
-    elif scheme_truep(scheme_eval(expressions.first, env)):
-        return False
-    return do_or_form(expressions.second,env)
-    """
     ret = False
     while expressions != nil:
         ret = scheme_eval(expressions.first, env)   
@@ -478,7 +460,6 @@ SPECIAL_FORMS['delay'] = do_delay_form
 ##################
 # Tail Recursion #
 ##################
-
 class Thunk:
     """An expression EXPR to be evaluated in environment ENV."""
     def __init__(self, expr, env):
@@ -526,11 +507,10 @@ def scheme_optimized_eval(expr, env, tail=False):
             result = scheme_apply(procedure, args, env)
             # END Extra Credit
     return result
-
 ################################################################
 # Uncomment the following line to apply tail call optimization #
 ################################################################
-scheme_eval = scheme_optimized_eval
+#scheme_eval = scheme_optimized_eval
 
 
 ################

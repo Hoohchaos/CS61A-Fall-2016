@@ -10,6 +10,72 @@
 ;;; *** Add more of your own here! ***
 ;;; **********************************
 
+(* 2 (/ 5 1) 4)
+;expect 40
+
+(if #t 'true 'false)
+;expect True
+
+(if #f 'true 'false)
+;expect False
+
+(if (> 1 3) 'true 'false)
+;expect False
+
+(or 1 2 3)
+;expect 1
+
+(or #f 2 3)
+;expect 2
+
+(or 1 2 3 #f)
+;expect 1
+
+(and 3 4 5 )
+;expect 5
+
+(and #f 4 5)
+;expect False
+
+(and 3 4 5 #f)
+;expect False
+
+'(1 2 3)
+;expect (1 2 3)
+
+'((1 2) . 3)
+;expect ((1 2) . 3)
+
+'((1 2) . 3 4)
+;expect Error
+
+(define x 123)
+;expect x
+
+(define x 123)
+x
+;expect 123
+
+(define x 123)
+(define y x)
+y
+;expect 123
+
+(define (func x) (+ x 123))
+(func 123)
+;expect 246
+
+(let ((x 1) (y 3)) (+ x y))
+;expect 4
+
+((lambda (x) (* x 123)) 2)
+;expect 246
+
+(define f (mu (x) (+ x y)))
+(define g (lambda (x y) (f (+ x x))))
+(g 6 4)
+;expect 16
+
 ;;; These are examples from several sections of "The Structure
 ;;; and Interpretation of Computer Programs" by Abelson and Sussman.
 
@@ -579,7 +645,6 @@ one-through-four
 ;;;;;;;;;;;;;;;;;;;;
 ;;; Extra credit ;;;
 ;;;;;;;;;;;;;;;;;;;;
-
 (exit)
 
 ; Tail call optimization tests
